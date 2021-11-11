@@ -24,9 +24,9 @@ let delivery = {
 vendor.emit('join', store)
 
 // Disconnect from the server after connecting
-// vendor.on('added', () => {
-//   vendor.disconnect();
-// })
+vendor.on('added', () => {
+  vendor.disconnect();
+})
 
 vendor.emit('pickup', delivery)
 
