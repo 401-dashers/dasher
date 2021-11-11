@@ -22,3 +22,8 @@ server.on('pickup', message => {
         console.log('Dahser delivered', message.orderID);
     }, 4000)
 })
+
+server.on('shipment', message => {
+    console.log('I have to get this package', message.parcel);
+    server.emit('recieved', message)
+})
