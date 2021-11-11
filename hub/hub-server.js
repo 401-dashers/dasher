@@ -19,7 +19,7 @@ hub.on('connection', (socket) => {
   //------ create/join room-----//
   socket.on('join', (room) => {
     socket.join(room);
-    console.log(socket.id, 'joined room', room);
+    console.log('User #', socket.id, 'joined room', room);
   })
 
   socket.on('getAll', () => {

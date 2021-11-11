@@ -13,7 +13,7 @@ server.on('pickup', message => {
     server.emit('join', message.store)
 
 
-    console.log('Dasher picked up', message.orderID);
+    console.log('Dasher picked up order #:', message.orderID);
     server.emit('driver-received', message.orderID)    
     
     setTimeout( () => {
@@ -22,7 +22,7 @@ server.on('pickup', message => {
     
     setTimeout( ()=> {
         server.emit('delivered', message);
-        console.log('Dahser delivered', message.orderID);
+        console.log('Dahser delivered order #:', message.orderID);
     }, 4000)
 })
 server.emit('getAll');
