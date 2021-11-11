@@ -25,13 +25,13 @@ vendor.emit('join', store)
 const cliInput = () => {
 
   //will show a question in terminal and wait for a response before running a callback function
-  readline.question(`Enter food name for a new delivery...`, food => {
+  readline.question(``, food => {
     let delivery = {
       orderID: faker.datatype.uuid(),
       foodItem: food, //foodname we enter in terminal will appear here
       store: store,
       customer: faker.name.findName(),
-      address: faker.address.cityName()
+      address: faker.address.streetAddress() + ', ' + faker.address.stateAbbr() + ' ' + faker.address.zipCode()
     }
     vendor.emit('pickup', delivery);
     cliInput(); //re-invoke itself so that we can keep entering foods in terminal without disconnecting
@@ -43,7 +43,7 @@ cliInput(); //initial invokation of a fucntion that will ask for our input in te
 vendor.on('delivered', deliveryMessage)
 
 function deliveryMessage(payload) {
-  console.log(`Your food order: ${payload.foodItem}, has been delivered! Thank you very much for shopping at ${payload.store}`);
+  console.log(`Your food order: ${payload.foodItem}, has been delivered! Thank you very much for shopping at ${payload.store}!`);
 
   vendor.emit('received', payload); //telling the hub that vendor is now aware that delivery has been completed
 }

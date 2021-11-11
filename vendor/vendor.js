@@ -13,9 +13,6 @@ const faker = require('faker');
 
 vendor.emit('checkAll');
 
-// Command Line "Trigger"
-const parcel = process.argv.splice(2)[0];
-
 // Store/Room name
 const store = 'Best Foods';
 
@@ -23,20 +20,16 @@ const store = 'Best Foods';
 // Join the room
 vendor.emit('join', store)
 
-// Disconnect from the server after connecting
-vendor.on('added', () => {
-  vendor.disconnect();
-})
 
 const cliInput = () => {
 
-  readline.question(`Enter food name for a new delivery...`, food => {
+  readline.question(``, food => {
     let delivery = {
       orderID: faker.datatype.uuid(),
       foodItem: food,
       store: store,
       customer: faker.name.findName(),
-      address: faker.address.cityName()
+      address: faker.address.streetAddress() + ', ' + faker.address.stateAbbr() + ' ' + faker.address.zipCode()
     }
     vendor.emit('pickup', delivery);
     cliInput();
@@ -52,7 +45,7 @@ cliInput();
 vendor.on('delivered', deliveryMessage)
 
 function deliveryMessage(payload) {
-  console.log(`Your food order: ${payload.foodItem}, has been delivered! Thank you very much for shopping at ${payload.store}`);
+  console.log(`Your food order: ${payload.foodItem}, has been delivered! Thank you very much for shopping at ${payload.store}!`);
 
   vendor.emit('received', payload);
 }
