@@ -22,7 +22,7 @@ server.on('pickup', message => {
     
     setTimeout( ()=> {
         server.emit('delivered', message);
-        console.log('Dahser delivered order #:', message.orderID);
+        console.log('Dasher delivered order #:', message.orderID);
     }, 4000)
 })
 server.emit('getAll');

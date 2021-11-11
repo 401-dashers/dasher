@@ -28,7 +28,7 @@ Heroku Link
 
 ### UML and WRRC
 
-![UML and WWRC](./img/UMLandWRRC.png)  
+![UML and WWRC](./img/UML.png)  
 
 ## Technology Used
 
