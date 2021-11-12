@@ -11,7 +11,6 @@ const vendor = io.connect('http://localhost:3000/dash');
 
 const faker = require('faker');
 
-vendor.emit('checkAll');
 
 // Store/Room name
 const store = 'Best Foods';
@@ -20,6 +19,7 @@ const store = 'Best Foods';
 // Join the room
 vendor.emit('join', store)
 
+vendor.emit('checkAll', store);
 
 const cliInput = () => {
 

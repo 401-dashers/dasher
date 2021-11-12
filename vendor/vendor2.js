@@ -13,7 +13,6 @@ const faker = require('faker');
 const vendor = io.connect('http://localhost:3000/dash');
 
 
-vendor.emit('checkAll');
 
 // Store/Room name
 const store = 'Korean Barbecue';
@@ -21,6 +20,7 @@ const store = 'Korean Barbecue';
 // Create a room that carries the store's name
 vendor.emit('join', store)
 
+vendor.emit('checkAll', store);
 
 const cliInput = () => {
 
