@@ -33,9 +33,13 @@ hub.on('connection', (socket) => {
     delete queue.shipments[orderID];
   })
 
-  socket.on('checkAll', () => {
+  socket.on('checkAll', (store) => {
+    
     Object.keys(queue.delivered).forEach(orderID => {
-      socket.emit('delivered', queue.delivered[orderID])
+ 
+      if(store === queue.delivered[orderID].store){
+        socket.emit('delivered', queue.delivered[orderID])
+      }
     })
   })
 
@@ -53,6 +57,7 @@ hub.on('connection', (socket) => {
   socket.on('delivered', payload => {
     foodLogger('delivered', payload)
     queue.delivered[payload.orderID] = payload;
+    console.log(queue);
     hub.to(payload.store).emit('delivered', payload);
   })
 
