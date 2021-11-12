@@ -1,7 +1,6 @@
 'use strict';
 
 const io = require('socket.io')(3000);
-
 io.on('connection', (socket) => {
   console.log(`Client app connected to core with socket ID: ${socket.id}`)
 })
@@ -16,14 +15,13 @@ let queue = {
 hub.on('connection', (socket) => {
   console.log('client joined:', socket.id);
 
-  //------ create/join room-----//
   socket.on('join', (room) => {
     socket.join(room);
     console.log('User #', socket.id, 'joined room', room);
   })
 
   socket.on('getAll', () => {
-    console.log('Geting all shipments per driver request')
+    console.log('Getting all shipments per driver request')
     Object.keys(queue.shipments).forEach(orderID => {
       socket.emit('pickup', queue.shipments[orderID])
     })
@@ -34,9 +32,8 @@ hub.on('connection', (socket) => {
   })
 
   socket.on('checkAll', (store) => {
-    
-    Object.keys(queue.delivered).forEach(orderID => {
- 
+    console.log('Checking completion status of deliveries per vendor request')
+    Object.keys(queue.delivered).forEach(orderID => { 
       if(store === queue.delivered[orderID].store){
         socket.emit('delivered', queue.delivered[orderID])
       }
@@ -57,7 +54,6 @@ hub.on('connection', (socket) => {
   socket.on('delivered', payload => {
     foodLogger('delivered', payload)
     queue.delivered[payload.orderID] = payload;
-    console.log(queue);
     hub.to(payload.store).emit('delivered', payload);
   })
 
