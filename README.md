@@ -2,27 +2,34 @@
 
 ## Description
 
-Welcome to 401-dashers! We made an application based on a food delivery service! We will send our order and have that ordered tracked when it has been picked up, and when the food item was delivered!
+Welcome to 401-dashers! We made an application based on a food delivery service! We will send our order and have that order tracked when it has been picked up, and when the food item was delivered! 
+
+This app imitates having two restaurants and one dasher(delivery driver) that serves both vendors. The app uses queues to preserve orders in case a dasher logs off and reconnects later, and vice versa, to preserve delivery notifications for vendors to become aware that their orders were delivered, in case they too had gotten logged off and reconnected later.
+
+Also, a dasher delivers all the orders from both vendors, but only notifies a specific vendor about completing their specific delivery, even when vendors log off and reconnect later.
 
 ## Authors
 
-- Ayrat Gimranov, Software Engineer
+- Ayrat Gimranov, Software Developer
 - Charlie Fadness, Software Developer
 - Jeremy Brazell, Software Developer
 
 ## To Start
 
-Welcome again to 401-dashers! To start our project, first you need to run hub. It is our brain at the momment, run `node hub-server.js`. Second we want to start up dasher, run `node dasher.js`.
+There are three folders: `hub`, `dasher` and `vendor`. Each folder represents a separate app. `vendor` folder contains two files: `vendor.js` and `vendor2.js`, that need to be started up separately.
 
-From there, we can start adding our food while under the vender.js, type out `node vendor.js <food-item-here>`, this will send a notification to our dashers that will respond, and pick up those food items to deliver! Once you get a notification that your food item is delivered, your done!
+First run `node hub-server.js` inside the `hub` folder. It is the brain. 
 
-## Deployed Link
+Then, we can to start our clients in any order.
+- To start a dasher, run `node dasher.js` within a `dasher` folder. 
+- To start a first restaurant ("Best Foods"), run `node vendor.js` within `vendor` folder.
+- To start a second restaurant ("Korean Barbeque"), run `node vendor2.js` within the same `vendor` folder.
 
-Heroku Link
+Once vendors are started, we can enter food items one by one directly into a terminal window of each vendor to trigger a pickup order for the dasher. This will send a notification to our dasher who will respond and pick up those food items to deliver! The driver will then notify a specific vendor once the restaurant's order has been delivered. Vendors will acknowledge that they were notified of a delivery by saying "Thank you"! And the hub will log out the whole process.
 
-- [Hub]()
-- [Vendor]()
-- [Dasher]()
+Clients do not have to run at the same time. Vendors can log on, place orders and log off. The dasher can log on later, carry out those orders and log off as well. When vendors log on the next time, they will get a notification that their orders have been completed.
+
+If both drivers and vendors are logged on at the same, the driver will start carring out deliveries as soon they are entered.
 
 ## Data Modeling
 
@@ -44,8 +51,4 @@ To see our tests, you will have to be under the root folder of dashers, then typ
 
 ## Install
 
-```
-npm i
-```
-
-## Other
+Run `npm i` in each of the three folders: "hub", "vendor", "dasher"
